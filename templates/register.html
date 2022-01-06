@@ -5,15 +5,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'add.css') }}" /> 
 </head>
 <body>
   <div>
     <h3>Register</h3>
-    <form method="post">
+    <form class="form" method="post">
       <input type="text" name="name" placeholder="Name" />
       <input type="text" name="email" placeholder="Email" />
       <input type="password" name="password" placeholder="Password" />
       <button type="submit">Register</button>
+      <a href="/login">Already have an account? Log in</a>
     </form>
     {% if errors %}
       {% for error in errors %}

@@ -5,36 +5,44 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Search tutorials</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'search.css') }}" /> 
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+      rel="stylesheet" />
 </head>
 <body>
-  <div>
+  <main class="content">
+    <a href="/" class="material-icons-round back">
+      arrow_back
+    </a>
     <h3>Search tutorials</h3>
-    <form method="get">
+    <form class="form" method="get">
       <input type="text" name="search" placeholder="Search" />
       <button type="submit">Search</button>
     </form>
     {% if query %}
       {% if tutorials %}
-      <h3>Search results for: {{search}}</h3>
+      <p>Search results for: {{query}}</p>
+      <div class="cards">
       {% for tut in tutorials %}
-        <table>
-          <tr>
-            <td>{{tut.title}}</td>
-            <td>{{tut.description}}</td>
-            <td>{{tut.url}}</td>
-            <td>{{tut.created_at}}</td>
-            <td>
-              <a href="/tutorial/{{tut.id}}">View</a>
-              <a href="/edit-tutorial/{{tut.id}}">Edit</a>
-              <a href="/delete-tutorial/{{tut.id}}">Delete</a>
-            </td>
-          </tr>
-        </table>
-      {% endfor %}
+          <div class="card">
+            <div class="card-content">
+              <p class="heading">{{tut.title}}</p>
+              <p>{{tut.description}}</p>
+              <p>{{tut.url}}</p>
+              <p>{{tut.created_at}}</p>
+            </div>
+            <div class="card-actions">
+             <a href="{{tut.url}}" target="_blank" rel="noopener">View</a>
+              <a href="/edit-tutorial/{{tut._id}}">Edit</a>
+              <a href="/delete-tutorial/{{tut._id}}">Delete</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
       {% else %}
       <p>No tutorials found.</p>
       {% endif %}
     {% endif %}
-  </div>
+      </main>
 </body>
 </html>

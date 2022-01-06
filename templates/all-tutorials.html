@@ -4,33 +4,40 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{url_for('static', filename = 'all.css')}}" />
   <title>Tutorials</title>
 </head>
 <body>
-  <h3>Tutorials</h3>
-  <ul>
-    <li><a href="/search">Search</a></li>
-    <li><a href="/add-tutorial">Add Tutorial</a></li>
-  </ul>
-  <hr>
-  {% if tutorials %}
-    {% for tut in tutorials %}
-      <table>
-        <tr>
-          <td>{{tut.title}}</td>
-          <td>{{tut.description}}</td>
-          <td>{{tut.url}}</td>
-          <td>{{tut.created_at}}</td>
-          <td>
-            <a href="/tutorial/{{tut._id}}">View</a>
-            <a href="/edit-tutorial/{{tut._id}}">Edit</a>
-            <a href="/delete-tutorial/{{tut._id}}">Delete</a>
-          </td>
-        </tr>
-      </table>
-    {% endfor %}
-    {% else %}
-      <p>No tutorials found.</p>
-  {% endif %}
+  <nav class="appbar">
+    <p>Tutorials</p>
+    <span style="flex-grow: 0.7;"></span>
+    <a class="nav-items" href="/search">Search</a>
+    <a class="nav-items" href="/add-tutorial">Add Tutorial</a>
+    <a class="login" href="/login">Login</a>
+    <a class="register" href="/register">Register</a>
+  </nav>
+  <main class="content">
+    {% if tutorials %}
+    <div class="cards">
+      {% for tut in tutorials %}
+          <div class="card">
+            <div class="card-content">
+              <p class="heading">{{tut.title}}</p>
+              <p>{{tut.description}}</p>
+              <p>{{tut.url}}</p>
+              <p>{{tut.created_at}}</p>
+            </div>
+            <div class="card-actions">
+              <a href="{{tut.url}}" target="_blank" rel="noopener">View</a>
+              <a href="/edit-tutorial/{{tut._id}}">Edit</a>
+              <a href="/delete-tutorial/{{tut._id}}">Delete</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>No tutorials found.</p>
+    {% endif %}
+  </main>
 </body>
 </html>
