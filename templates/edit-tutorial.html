@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit {{tutorial_id}}</title>
+</head>
+<body>
+  <div>
+    <h3>Edit Tutorial</h3>
+    <form method="post">
+      <input type="text" name="title" placeholder="Title" value="{{tutorial.title}}" />
+      <input type="text" name="description" placeholder="Description" value="{{tutorial.description}}" />
+      <input type="text" name="url" placeholder="URL" value="{{tutorial.url}}" />
+      <button type="submit">Edit Tutorial</button>
+    </form>
+  </div>
+</body>
+</html>

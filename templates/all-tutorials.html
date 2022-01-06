@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorials</title>
+</head>
+<body>
+  <h3>Tutorials</h3>
+  <ul>
+    <li><a href="/search">Search</a></li>
+    <li><a href="/add-tutorial">Add Tutorial</a></li>
+  </ul>
+  <hr>
+  {% if tutorials %}
+    {% for tut in tutorials %}
+      <table>
+        <tr>
+          <td>{{tut.title}}</td>
+          <td>{{tut.description}}</td>
+          <td>{{tut.url}}</td>
+          <td>{{tut.created_at}}</td>
+          <td>
+            <a href="/tutorial/{{tut._id}}">View</a>
+            <a href="/edit-tutorial/{{tut._id}}">Edit</a>
+            <a href="/delete-tutorial/{{tut._id}}">Delete</a>
+          </td>
+        </tr>
+      </table>
+    {% endfor %}
+    {% else %}
+      <p>No tutorials found.</p>
+  {% endif %}
+</body>
+</html>

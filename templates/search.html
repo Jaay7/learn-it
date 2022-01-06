@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search tutorials</title>
+</head>
+<body>
+  <div>
+    <h3>Search tutorials</h3>
+    <form method="get">
+      <input type="text" name="search" placeholder="Search" />
+      <button type="submit">Search</button>
+    </form>
+    {% if query %}
+      {% if tutorials %}
+      <h3>Search results for: {{search}}</h3>
+      {% for tut in tutorials %}
+        <table>
+          <tr>
+            <td>{{tut.title}}</td>
+            <td>{{tut.description}}</td>
+            <td>{{tut.url}}</td>
+            <td>{{tut.created_at}}</td>
+            <td>
+              <a href="/tutorial/{{tut.id}}">View</a>
+              <a href="/edit-tutorial/{{tut.id}}">Edit</a>
+              <a href="/delete-tutorial/{{tut.id}}">Delete</a>
+            </td>
+          </tr>
+        </table>
+      {% endfor %}
+      {% else %}
+      <p>No tutorials found.</p>
+      {% endif %}
+    {% endif %}
+  </div>
+</body>
+</html>
