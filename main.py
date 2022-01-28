@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, session, url_for
 from bson import ObjectId
 from pymongo import MongoClient
 import os
@@ -42,6 +42,8 @@ def login():
         if result > 0:
             data = cur.fetchone()
             if data:
+                session['logged_in'] = True
+                session['email'] = email
                 return redirect(url_for('all_tutorials'))
             else:
                 return "Password incorrect"
@@ -57,7 +59,12 @@ tutorials = db.tutorials
 @app.route('/')
 # @app.route('/all-tutorials')
 def all_tutorials():
-  return render_template('all-tutorials.html', tutorials=tutorials.find())
+  if 'logged_in' in session and 'email' in session:
+    logged_in = session['logged_in']
+    email = session['email']
+    return render_template('all-tutorials.html', tutorials=tutorials.find(), logged_in=logged_in, email=email)
+  else:
+    return render_template('all-tutorials.html', tutorials=tutorials.find(), logged_in=False, email=None)
 
 @app.route('/add-tutorial', methods=['GET', 'POST'])
 def add_tutorial():
@@ -102,6 +109,11 @@ def search():
   query = request.args.get('search')
   return render_template('search.html', query=query, tutorials=tutorials.find({'title': { '$regex': query, '$options': "i" } }))
 
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
+  app.secret_key = os.environ['SECRET_KEY']
   app.run(debug=True)

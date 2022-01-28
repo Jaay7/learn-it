@@ -13,8 +13,13 @@
     <span style="flex-grow: 0.7;"></span>
     <a class="nav-items" href="/search">Search</a>
     <a class="nav-items" href="/add-tutorial">Add Tutorial</a>
-    <a class="login" href="/login">Login</a>
-    <a class="register" href="/register">Register</a>
+    {% if logged_in %}
+      <span class="nav-items">Hi, {{email}}</span>
+      <a class="register" href="/logout">Logout</a>
+    {% else %}
+      <a class="login" href="/login">Login</a>
+      <a class="register" href="/register">Register</a>
+    {% endif %}
   </nav>
   <main class="content">
     {% if tutorials %}
